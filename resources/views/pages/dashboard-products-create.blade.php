@@ -14,15 +14,25 @@
             <div class="dashboard-content">
                 <div class="row">
                     <div class="col-12">
-                        <form action="">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('dashboard-product-store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="storeName">Product Name</label>
-                                                <input type="text" class="form-control" id="storeName"
-                                                    name="storeName" />
+                                                <label for="name">Product Name</label>
+                                                <input type="text" class="form-control" id="name" name="name" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -34,9 +44,11 @@
 
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="category">Category</label>
-                                                <select name="category" id="category" class="form-control">
-                                                    <option value="" disabled>Furniture</option>
+                                                <label for="categories_id">Category</label>
+                                                <select name="categories_id" id="categories_id" class="form-control">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -44,7 +56,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Description</label>
-                                                <textarea name="editor"></textarea>
+                                                <textarea id="editor" name="description"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +64,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Thumbnails</label>
-                                                <input type="file" class="form-control" />
+                                                <input type="file" name="photo" class="form-control" />
                                                 <p class="text-muted">
                                                     Kamu Dapat Memilih Lebih Dari Satu
                                                 </p>

@@ -48,9 +48,13 @@
                         Users
                     </a>
 
-                    <a href="/index.html" class="list-group-item list-group-item-action">
-                        Sign Out
-                    </a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();"
+                        class="dropdown-item">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
 
@@ -73,7 +77,7 @@
                                         data-toggle="dropdown">
                                         <img src="/images/icon-user.png" alt=""
                                             class="rounded-circle mr-2 profile-picture" />
-                                        Hi, Fazeel
+                                        Hi, {{ Auth::user()->name }}
                                     </a>
                                     <div class="dropdown-menu">
                                         <a href="/" class="dropdown-item">Logout</a>

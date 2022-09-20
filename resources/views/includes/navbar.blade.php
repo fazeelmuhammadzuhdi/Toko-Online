@@ -57,7 +57,8 @@
                              @endphp
                              @if ($carts > 0)
                                  <img src="/images/icon-cart-filled.svg" alt="" />
-                                 <div class="card-badge rounded-circle" style="margin-left: -13px">{{ $carts }}</div>
+                                 <div class="card-badge rounded-circle" style="margin-left: -13px">{{ $carts }}
+                                 </div>
                              @else
                                  <img src="/images/icon-cart-empty.svg" alt="" />
                              @endif
@@ -69,8 +70,8 @@
 
                  <ul class="navbar-nav d-block d-lg-none">
                      <li class="nav-item">
-                         <a href="#" class="nav-link">Hi, Fazeel</a>
-                         <a href="#" class="nav-link d-inline-block">Cart</a>
+                         <a href="{{ route('dashboard') }}" class="nav-link">Hi, {{ Auth::user()->name }}</a>
+                         <a href="{{ route('cart') }}" class="nav-link d-inline-block">Cart</a>
                      </li>
                  </ul>
              @endauth

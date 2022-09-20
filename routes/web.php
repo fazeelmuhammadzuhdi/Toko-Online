@@ -51,6 +51,7 @@ Route::get('/register/success', [RegisterController::class, 'success'])->name('r
 
 
 Route::group(['middleware' => ['auth']], function () {
+
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::delete('/cart/{id}', [CartController::class, 'delete'])->name('cart-delete');
 
@@ -59,14 +60,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/products', [DashboardProductController::class, 'index'])->name('dashboard-product');
     Route::get('dashboard/products/create', [DashboardProductController::class, 'create'])->name('dashboard-product-create');
+    Route::post('dashboard/products', [DashboardProductController::class, 'store'])->name('dashboard-product-store');
     Route::get('dashboard/products/{id}', [DashboardProductController::class, 'details'])->name('dashboard-product-details');
 
+    Route::post('dashboard/products/{id}', [DashboardProductController::class, 'update'])->name('dashboard-product-update');
+    Route::post('dashboard/products/gallery/upload', [DashboardProductController::class, 'uploadGallery'])->name('dashboard-product-gallery-upload');
+    Route::get('dashboard/products/gallery/delete/{id}', [DashboardProductController::class, 'deleteGallery'])->name('dashboard-product-gallery-delete');
 
     Route::get('dashboard/transactions', [DashboardTransactionController::class, 'index'])->name('dashboard-transaction');
     Route::get('dashboard/transactions/{id}', [DashboardTransactionController::class, 'details'])->name('dashboard-transaction-details');
+    Route::post('dashboard/transactions/{id}', [DashboardTransactionController::class, 'update'])->name('dashboard-transaction-update');
 
     Route::get('dashboard/settings', [DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
     Route::get('dashboard/account', [DashboardSettingController::class, 'account'])->name('dashboard-settings-account');
+    Route::post('dashboard/account/{redirect}', [DashboardSettingController::class, 'update'])->name('dashboard-settings-redirect');
 });
 
 Route::prefix('admin')
